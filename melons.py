@@ -1,17 +1,28 @@
 """Classes for melon orders."""
 
-
-class DomesticMelonOrder():
-    """A melon order within the USA."""
-
-    def __init__(self, species, qty):
-        """Initialize melon order attributes."""
-
+class AbstractMelonOrder():
+    
+    def __init__(self, species, qty, shipped, order_type, tax):
         self.species = species
         self.qty = qty
-        self.shipped = False
-        self.order_type = "domestic"
-        self.tax = 0.08
+        self.shipped = shipped
+        self.order_type = order_type
+        self.tax = tax
+
+class DomesticMelonOrder(AbstractMelonOrder):
+    """A melon order within the USA."""
+
+    def __init__(self, species, qty, shipped):
+        """Initialize melon order attributes."""
+        tax = 0.08
+        order_type = "domestic"
+        # self.species = species
+        # self.qty = qty
+        # self.shipped = False
+
+        super().__init__(tax, order_type)
+        #self.order_type = "domestic"
+        #self.tax = 0.08
 
     def get_total(self):
         """Calculate price, including tax."""
@@ -27,7 +38,7 @@ class DomesticMelonOrder():
         self.shipped = True
 
 
-class InternationalMelonOrder():
+class InternationalMelonOrder(AbstractMelonOrder):
     """An international (non-US) melon order."""
 
     def __init__(self, species, qty, country_code):
