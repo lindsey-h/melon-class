@@ -2,11 +2,10 @@
 
 class AbstractMelonOrder():
     
-    def __init__(self, species, qty, shipped, order_type, tax):
+    def __init__(self, species, qty, order_type, tax):
         self.species = species
         self.qty = qty
-        # self.country_code = country
-        self.shipped = shipped
+        self.shipped = False
         self.order_type = order_type
         self.tax = tax
 
@@ -30,16 +29,17 @@ class DomesticMelonOrder(AbstractMelonOrder):
     def __init__(self, species, qty):
         """Initialize melon order attributes."""
 
-        super().__init__(species, qty, False, order_type="domestic", tax=0.08)
+        super().__init__(species, qty, order_type="domestic", tax=0.08)
 
 
 class InternationalMelonOrder(AbstractMelonOrder):
     """An international (non-US) melon order."""
 
-    def __init__(self, species, qty):
+    def __init__(self, species, qty, country_code):
         """Initialize melon order attributes."""
 
-        super().__init__(species, qty, False, order_type="international", tax=0.17)
+        super().__init__(species, qty, order_type="international", tax=0.17)
+        self.country_code = country_code
 
 
     def get_country_code(self):
@@ -50,4 +50,4 @@ class InternationalMelonOrder(AbstractMelonOrder):
 
 if __name__ ==  '__main__':
     order1 = DomesticMelonOrder("cant", 4)
-    order2 = InternationalMelonOrder("bloob", 99)
+    order2 = InternationalMelonOrder("bloob", 99, 20092009)
